@@ -10,13 +10,20 @@
 
 ## Demo
 
-This theme has multiple demo sites, to provide examples of how to set up deployment
-- [Vercel](https://zola-bearblog.vercel.app/)
+This theme has multiple demo sites, to provide examples of how to set up deployment.
+
+### Recommended
+
 - [Netlify](https://zola-bearblog.netlify.app/)
-- [Gitlab Pages](https://alanpearce.gitlab.io/zola-bearblog)
-- [Cloudflare Pages](https://zola-bearblog.pages.dev/)
 - [Grebedoc](https://alanpearce.grebedoc.dev/zola-bearblog/)
 - [Codeberg Pages](https://alanpearce.codeberg.page/zola-bearblog/)
+- [Gitlab Pages](https://alanpearce.gitlab.io/zola-bearblog)
+
+### Not recommended
+
+These providers' build environments aren't yet compatible with Zola 0.21.0.
+- [Cloudflare Pages](https://zola-bearblog.pages.dev/)
+- [Vercel](https://zola-bearblog.vercel.app/)
 
 ## Screenshot
 
