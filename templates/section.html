@@ -24,6 +24,7 @@
         <li>{{ trans(key="no_posts", lang=lang) }}</li>
       {%- endfor -%}
     </ul>
+    {%- if false %}
     <div class="tags">
       {%- set taxonomy_group = section.extra.taxonomy_group | default(value="tags") %}
       {%- set tags = get_taxonomy(kind=taxonomy_group, lang=lang) %}
@@ -31,5 +32,6 @@
         <a href="{{ post.permalink }}">#{{ post.name }}</a>&nbsp;
       {%- endfor %}
     </div>
+    {%- endif %}
   </main>
 {% endblock %}

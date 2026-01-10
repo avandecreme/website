@@ -1,6 +1,6 @@
-title = "Zola ʕ•ᴥ•ʔ Bear Blog"
+title = "Antoine Vandecrème site"
 base_url = "/"
-description = "A Zola-theme based on Bear Blog."
+description = "Antoine Vandecrème personal site. Mostly about programming."
 
 generate_feeds = true
 
@@ -11,8 +11,8 @@ compile_sass = false
 build_search_index = false
 
 taxonomies = [
-  { name = "categories", feed = true },
-  { name = "tags", feed = true },
+  # { name = "categories", feed = true },
+  # { name = "tags", feed = true },
 ]
 
 default_language = "en"
@@ -26,36 +26,38 @@ table_of_contents = "Table of contents"
 language = "language"
 site = "site"
 
-[languages.de]
-title = "Zola ʕ•ᴥ•ʔ Bear Blog"
-description = "Ein Zola-theme basiert auf Bear Blog."
+# [languages.de]
+# title = "Zola ʕ•ᴥ•ʔ Bear Blog"
+# description = "Ein Zola-theme basiert auf Bear Blog."
 
-taxonomies = [
-  { name = "categories", feed = true },
-  { name = "tags", feed = true },
-]
+# taxonomies = [
+#   { name = "categories", feed = true },
+#   { name = "tags", feed = true },
+# ]
 
-[languages.de.translations]
-no_posts = "Keine Einträge"
-remove_filter = "Filter entfernen"
-filtering_for = "Filtern nach"
-made_with = "Erstellt mit"
-table_of_contents = "Inhaltsverzeichnis"
-language = "Sprache"
-site = "Site"
+# [languages.de.translations]
+# no_posts = "Keine Einträge"
+# remove_filter = "Filter entfernen"
+# filtering_for = "Filtern nach"
+# made_with = "Erstellt mit"
+# table_of_contents = "Inhaltsverzeichnis"
+# language = "Sprache"
+# site = "Site"
 
 [markdown]
 # Whether to do syntax highlighting
 # Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
-highlight_code = false
+highlight_code = true
+highlight_theme = "visual-studio-dark"
 
 [extra]
 date_format = "%Y-%m-%d"
 webserver_sends_csp_headers = true
-language_switcher = true
+language_switcher = false
+hide_made_with_line = true
 translations = [
   { code = "en", name = "English" },
-  { code = "de", name = "Deutsch" },
+  # { code = "de", name = "Deutsch" },
 ]
 
 [extra.table_of_contents]
@@ -65,20 +67,10 @@ visible_on_load = true
 
 [[extra.main_menu]]
 name = "Home"
-name_de = "Startseite"
+# name_de = "Startseite"
 url = "@/_index.md"
 
 [[extra.main_menu]]
-name = "Bear"
-name_de = "Bear"
-url = "@/bear.md"
-
-[[extra.main_menu]]
-name = "Zola"
-name_de = "Zola"
-url = "@/zola.md"
-
-[[extra.main_menu]]
 name = "Blog"
-name_de = "Blog"
+# name_de = "Blog"
 url = "@/blog/_index.md"

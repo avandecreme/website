@@ -1,11 +1,12 @@
 +++
 title = "Markdown Syntax Guide"
 date = "2020-01-03"
+draft = true
 description = "Sample article showcasing basic Markdown syntax and formatting for HTML elements."
-taxonomies.tags = [
-    "markdown",
-    "syntax",
-]
+# taxonomies.tags = [
+#     "markdown",
+#     "syntax",
+# ]
 +++
 
 For a quick cheatsheet, check out [https://simplemde.com/markdown-guide](https://simplemde.com/markdown-guide).
