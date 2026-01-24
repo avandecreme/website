@@ -3,27 +3,56 @@ name: Deploy to Cloudflare Pages
 on:
   push:
     branches:
-      - main
+      - '**'
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      deployments: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Install Nix
-        uses: cachix/install-nix-action@v25
-
-      - name: Build Zola site
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v25
+      - name: Build site
         run: nix develop --command zola build
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: public
 
-      - name: Deploy to Cloudflare Pages
+  deploy-prod:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      deployments: write
+    if: ${{ github.ref_name == 'main' }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: public
+      - name: Deploy to production
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy public --project-name=website
+
+  deploy-preview:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      deployments: write
+    if: ${{ github.ref_name != 'main' }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: build
+      - name: Deploy to preview
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy build --project-name=website
