@@ -21,38 +21,19 @@ jobs:
           name: site
           path: public
 
-  deploy-prod:
+  deploy:
     needs: build
     runs-on: ubuntu-latest
     permissions:
       deployments: write
-    if: ${{ github.ref_name == 'main' }}
     steps:
       - uses: actions/download-artifact@v4
         with:
           name: site
           path: public
-      - name: Deploy to production
+      - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy public --project-name=website
-
-  deploy-preview:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      deployments: write
-    if: ${{ github.ref_name != 'main' }}
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: site
-          path: build
-      - name: Deploy to preview
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy build --project-name=website
+          command: pages deploy public --project-name=website --branch=${{ github.ref_name }}
