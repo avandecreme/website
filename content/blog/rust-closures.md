@@ -705,7 +705,10 @@ Here too we need `move` otherwise we get the same borrow checker error.
 This article is long enough as is, so I am stopping here for now.
 I plan to publish a follow up article for async closures later.
 If you want to read more on the subject I recommend:
-1. The [closure chapter in the rust book](https://doc.rust-lang.org/book/ch13-01-closures.html)
-2. The [closure chapter in the rust reference](https://doc.rust-lang.org/reference/types/closure.html)
-3. The [article from the baby steps blog about adding an explicit capture clause](https://smallcultfollowing.com/babysteps/blog/2025/10/22/explicit-capture-clauses/)
-4. The Rust Unstable book on [fn_traits](https://doc.rust-lang.org/beta/unstable-book/library-features/fn-traits.html) and [unboxed_closures](https://doc.rust-lang.org/beta/unstable-book/language-features/unboxed-closures.html).
+1. The [closure chapter in the rust book](https://doc.rust-lang.org/book/ch13-01-closures.html).
+2. The [closure chapter in the rust reference](https://doc.rust-lang.org/reference/types/closure.html).
+3. [Finding Closure in Rust](https://huonw.github.io/blog/2015/05/finding-closure-in-rust/) by Huon Wilson.
+4. The [article from the baby steps blog about adding an explicit capture clause](https://smallcultfollowing.com/babysteps/blog/2025/10/22/explicit-capture-clauses/).
+5. The Rust Unstable book on [fn_traits](https://doc.rust-lang.org/beta/unstable-book/library-features/fn-traits.html) and [unboxed_closures](https://doc.rust-lang.org/beta/unstable-book/language-features/unboxed-closures.html).
+
+And to discuss this article, you can head over to the [Hacker News thread](https://news.ycombinator.com/item?id=46746266) or the [reddit thread](https://www.reddit.com/r/rust/comments/1qluyre/understanding_rust_closures/).
