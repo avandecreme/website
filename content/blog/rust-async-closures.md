@@ -1,12 +1,100 @@
 +++
 title = "Understanding rust async closures"
-draft = true
-date = "2026-01-18"
+date = "2026-01-31"
 description = "Explorations on what are rust async closures and how they work under the hood."
 # taxonomies.tags = [
 #     "rust",
 # ]
 +++
+
+In the [previous article](rust-closures), we saw how "normal" closures are desugared. The goal of this article is too see how it is done for async closures.
+
+However, we first need to understand how an async function is desugared.
+
+# Async fn desugaring
+
+Let consider this simple async function which sleeps 1 second before returning
+a String:
+```rust
+async fn last_word(sigh: &str) -> String {
+    tokio::time::sleep(Duration::from_secs(1)).await;
+    "last word: ".to_owned() + sigh
+}
+
+assert_eq!("last word: sigh!", last_word("sigh!").await);
+```
+
+As you might already know, an `async` function returning a `String` returns a value implementing `Future<Output = String>`.
+
+Here is the definition of the `Future` trait:
+```rust
+pub trait Future {
+    type Output;
+
+    fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output>;
+}
+```
+
+Let's try to implement that trait for a struct having a `sigh` field corresponding to our `sigh` parameter above:
+
+```rust
+struct LastWordFuture<'a> {
+    sigh: &'a str,
+    state: LastWordFutureState,
+}
+```
+
+You probably wonder what is that `state` field. When, desugaring an async function,
+the rust compiler build a state machine with each state corresponding to an await point. In our case:
+
+```rust
+enum LastWordFutureState {
+    Initial,
+    SleepAwaitPoint {
+        future: Pin<Box<dyn Future<Output = ()>>>,
+    },
+}
+```
+Since we have only one `await`, we just have the `Initial` state and the `SleepAwaitPoint`. If we had more `await` in the function, we would have one
+extra variant for each `await` point. 
+
+We are now ready to implement `Future` for `LastWordFuture`:
+
+```rust
+impl<'a> Future for LastWordFuture<'a> {
+    type Output = String;
+    fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
+        match self.state {
+            LastWordFutureState::Initial => {
+                let future = Box::pin(tokio::time::sleep(Duration::from_secs(1)));
+                self.state = LastWordFutureState::SleepAwaitPoint { future };
+                self.poll(cx)
+            }
+            LastWordFutureState::SleepAwaitPoint { ref mut future } => {
+                match future.as_mut().poll(cx) {
+                    Poll::Ready(()) => {
+                        Poll::Ready("last word: ".to_owned() + self.sigh)
+                    }
+                    Poll::Pending => Poll::Pending,
+                }
+            }
+        }
+    }
+}
+```
+
+EXPLAIN
+
+example usage:
+
+```rust
+let sigh = "sigh!";
+let last_word_future = LastWordFuture {
+    sigh,
+    state: LastWordFutureState::Initial,
+};
+last_word_future.await;
+```
 
 # Async closures
 
