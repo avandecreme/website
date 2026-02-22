@@ -578,3 +578,5 @@ If you want to read more on the subject I recommend:
 3. [Async Closures](https://hackmd.io/@compiler-errors/async-closures) by Michael Goulet who implemented that feature.
 4. [Giving, lending, and async closures](https://smallcultfollowing.com/babysteps/blog/2023/05/09/giving-lending-and-async-closures/) by Niko Matsakis.
 5. The [async closure RFC](https://rust-lang.github.io/rfcs/3668-async-closures.html).
+
+You can discuss this article on [Hacker News](https://news.ycombinator.com/item?id=47112386) or [reddit](https://www.reddit.com/r/rust/comments/1rbqeap/understanding_rust_async_closures/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button).
