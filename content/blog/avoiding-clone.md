@@ -146,4 +146,4 @@ Note that if you are not clear about the use of the `move` keyword here, you mig
 # Conclusion
 
 This is not an exhaustive list but those are the techniques I use the most often.
-If you would like to discuss them or share your own, you can do so on [Reddit](https://https://www.reddit.com) or [Hacker News](https://news.ycombinator.com/).
+If you would like to discuss them or share your own, you can do so on [Reddit](https://www.reddit.com/r/rust/comments/1sdtwaz/tips_and_tricks_to_avoid_cloning/) or [Hacker News](https://news.ycombinator.com/item?id=47658591).
